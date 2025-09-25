@@ -26,7 +26,7 @@ export default defineConfig(({mode}) => {
         // 访问项目的IP地址，可以设置为“0.0.0.0”来使项目外部可访问
         host: "0.0.0.0",
         // 访问项目的端口号
-        port: 8080,
+        port: 4201,
         // 自动启动浏览器
         open: true,
         // 配置反向代理处理跨域请求

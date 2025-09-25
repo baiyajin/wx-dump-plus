@@ -20,7 +20,7 @@
    ```
 
 3. **访问服务**
-   - 前端界面: http://localhost:8080
+   - 前端界面: http://localhost:4201
    - 后端API: http://localhost:5000
 
 ### Linux/Mac 用户
@@ -46,7 +46,7 @@
    ```
 
 4. **访问服务**
-   - 前端界面: http://localhost:8080
+   - 前端界面: http://localhost:4201
    - 后端API: http://localhost:5000
 
 ## 🛠️ 环境准备
@@ -136,7 +136,7 @@ npm install -g pnpm
 
 ### 3. 端口被占用
 - 后端默认端口: 5000
-- 前端默认端口: 8080
+- 前端默认端口: 4201
 - 可以修改配置文件更改端口
 
 ### 4. 依赖安装失败
