@@ -64,74 +64,7 @@ wx-dump-plus/
 
 ### 安装步骤
 
-#### 1. 克隆项目
-
-```bash
-git clone https://github.com/baiyajin/wx-dump-plus.git
-cd wx-dump-plus
-```
-
-#### 2. 安装后端依赖
-
-```bash
-cd py
-pip install -r requirements.txt
-```
-
-#### 3. 安装前端依赖
-
-```bash
-cd ../web
-npm install
-# 或使用 pnpm
-pnpm install
-```
-
-#### 4. 构建前端
-
-```bash
-npm run build
-# 或
-pnpm build
-```
-
-#### 5. 启动服务
-
-```bash
-# 启动后端API服务
-cd py
-python -m pywxdump.api.local_server
-
-# 或使用命令行工具
-wxdump ui
-```
-
-访问 http://127.0.0.1:5000 即可使用Web界面。
-
-## 📖 使用说明
-
-### 命令行使用
-
-```bash
-# 获取微信信息
-wxdump info
-
-# 解密微信数据库
-wxdump decrypt -k <密钥> -i <数据库路径> -o <输出路径>
-
-# 启动Web界面
-wxdump ui
-
-# 启动API服务
-wxdump api
-```
-
-### Web界面使用
-
-1. 打开微信电脑版并登录
-2. 启动wx-dump-plus服务
-3. 在浏览器中访问 http://127.0.0.1:5000
-4. 按照界面提示进行操作
+- 详情见py目录跟web目录
 
 ## 🔧 功能特性
 
