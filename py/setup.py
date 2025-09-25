@@ -34,14 +34,14 @@ install_requires = [
 ]
 
 setup(
-    name="pywxdump",
-    author="xaoyaoo",
+    name="wx-dump-plus",
+    author="baiyajin",
     version=version,
-    author_email="xaoyaoo@gmail.com",
-    description="微信信息获取工具",
+    author_email="baiyajin@example.com",
+    description="微信信息获取工具 - PyWxDump优化升级版",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/xaoyaoo/PyWxDump",
+    url="https://github.com/baiyajin/wx-dump-plus",
     license='MIT',
 
     # packages=find_packages(exclude=[]),

@@ -1,19 +1,24 @@
-setuptools
-wheel
-pycryptodomex
-pywin32
-silk-python
-pyaudio
-requests
-pyahocorasick
-lz4
-blackboxprotobuf
-lxml
-dbutils
-psutil
-pymem
+# 核心依赖
+psutil>=5.9.0
+pycryptodomex>=3.15.0
+pywin32>=306
+pymem>=1.8.0
+silk-python>=0.1.0
+pyaudio>=0.2.11
+requests>=2.28.0
+pyahocorasick>=2.0.0
+lz4>=4.0.0
+blackboxprotobuf>=1.0.0
+lxml>=4.9.0
+dbutils>=3.0.0
+
+# Web框架
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
 pydantic==2.7.0
-fastapi
-uvicorn
-python-dotenv
-pyinstaller
+python-dotenv>=1.0.0
+
+# 构建工具
+setuptools>=61.0
+wheel>=0.40.0
+pyinstaller>=5.0.0

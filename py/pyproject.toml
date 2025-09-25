@@ -1,0 +1,152 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wx-dump-plus"
+version = "3.1.45"
+description = "微信信息获取工具 - PyWxDump优化升级版"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "baiyajin", email = "baiyajin@example.com"},
+]
+maintainers = [
+    {name = "baiyajin", email = "baiyajin@example.com"},
+]
+keywords = ["wechat", "dump", "decrypt", "chat", "analysis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "psutil",
+    "pycryptodomex",
+    "pywin32",
+    "pymem",
+    "silk-python",
+    "pyaudio",
+    "requests",
+    "pyahocorasick",
+    "lz4",
+    "blackboxprotobuf",
+    "lxml",
+    "dbutils",
+    "fastapi",
+    "uvicorn",
+    "python-dotenv",
+    "pydantic==2.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+]
+build = [
+    "pyinstaller",
+    "build",
+    "twine",
+]
+
+[project.urls]
+Homepage = "https://github.com/baiyajin/wx-dump-plus"
+Documentation = "https://github.com/baiyajin/wx-dump-plus#readme"
+Repository = "https://github.com/baiyajin/wx-dump-plus.git"
+Issues = "https://github.com/baiyajin/wx-dump-plus/issues"
+Changelog = "https://github.com/baiyajin/wx-dump-plus/blob/main/CHANGELOG.md"
+
+[project.scripts]
+wxdump = "pywxdump.cli:console_run"
+wx-dump-plus = "main:main"
+
+[tool.setuptools]
+packages = [
+    "pywxdump",
+    "pywxdump.ui",
+    "pywxdump.wx_core",
+    "pywxdump.wx_core.utils",
+    "pywxdump.analyzer",
+    "pywxdump.api",
+    "pywxdump.api.export",
+    "pywxdump.db",
+    "pywxdump.db.utils",
+]
+
+[tool.setuptools.package-data]
+pywxdump = [
+    "WX_OFFS.json",
+    "ui/web/*",
+    "ui/web/assets/*",
+    "wx_core/tools/*",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["pywxdump"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "pymem.*",
+    "psutil.*",
+    "pycryptodomex.*",
+    "silk.*",
+    "pyaudio.*",
+    "pyahocorasick.*",
+    "lz4.*",
+    "blackboxprotobuf.*",
+    "lxml.*",
+    "dbutils.*",
+]
+ignore_missing_imports = true
