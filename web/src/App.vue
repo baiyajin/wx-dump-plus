@@ -2,39 +2,33 @@
 import chatIcon from "@/assets/icon/ChatIcon.vue";
 import StatisticsIcon from "@/assets/icon/StatisticsIcon.vue";
 import ToolsIcon from "@/assets/icon/ToolsIcon.vue";
-// import CollapseIcon from "@/assets/icon/CollapseIcon.vue";
-import ContactsIcon from "@/assets/icon/ContactsIcon.vue";
-import MomentsIcon from "@/assets/icon/MomentsIcon.vue";
-import FavoriteIcon from "@/assets/icon/FavoriteIcon.vue";
 
-import {RouterLink, RouterView} from 'vue-router'
-import {ref, onMounted, withCtx, watch} from 'vue'
-import router from "@/router";
-import {is_db_init, is_use_local_data} from "@/utils/common_utils";
+import {RouterView} from 'vue-router'
+import {ref, onMounted} from 'vue'
+import {is_db_init} from "@/utils/common_utils";
 import ChatRecordsMain from "@/components/chat/ChatRecordsMain.vue";
-
-const isCollapse = ref(false);
 
 const is_local_data = ref(true);
 
+// 菜单项配置
+const menuItems = [
+  { path: '/chat', icon: chatIcon, text: '聊天查看' },
+  { path: '/statistics', icon: StatisticsIcon, text: '统计分析' },
+  { path: '/wxinfo', icon: ToolsIcon, text: '账号信息' },
+  { path: '/bias', icon: ToolsIcon, text: '基址偏移' },
+  { path: '/decrypt', icon: ToolsIcon, text: '解密数据' },
+  { path: '/merge', icon: ToolsIcon, text: '数据库合并' },
+  { path: '/batch-export', icon: ToolsIcon, text: '批量导出' }
+];
+
 onMounted(() => {
-  // localStorage.setItem('isDbInit', "t");
   is_local_data.value = localStorage.getItem('isUseLocalData') === 't';
   console.log("is_local_data", is_local_data.value);
   if(!is_local_data.value) {
     is_db_init();
   }
 })
-// watch(isDbInit, (val) => {
-//   localStorage.setItem('isDbInit', val);
-// })
 
-const handleOpen = (key: string, keyPath: string[]) => {
-  // console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  // console.log(key, keyPath)
-}
 </script>
 
 <template>
@@ -42,68 +36,32 @@ const handleClose = (key: string, keyPath: string[]) => {
     <chat-records-main wxid="wxid_test"/>
   </div>
   <div id="appbg" v-else>
-    <el-container class="layout-container-demo" style="height: 100%;background:none;">
-      <el-aside :width="isCollapse ? '64px' : '160px'" style="display: flex; justify-content: center; align-items: center;">
-        <el-container class="sidebar-container" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-          <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse" :router='true'
-                   :collapse-transition="false" :show-timeout="0" :hide-timeout="0" style="text-align: center;">
+    <!-- 顶部固定导航栏 -->
+    <div class="top-navbar">
+      <div class="navbar-content">
+        <nav class="navbar-menu">
+          <div class="navbar-menu-horizontal">
+            <a 
+              v-for="item in menuItems" 
+              :key="item.path"
+              :href="'#' + item.path" 
+              class="navbar-item" 
+              :class="{ active: $route.path === item.path }"
+            >
+              <component :is="item.icon"></component>
+              <span>{{ item.text }}</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
 
-
-            <el-menu-item index='/chat' style="text-align: center; justify-content: center;">
-              <chat-icon></chat-icon>
-              <template #title>聊天查看</template>
-            </el-menu-item>
-
-            <!--            <el-menu-item index='/contacts'>-->
-            <!--              <contacts-icon></contacts-icon>-->
-            <!--              <template #title>好友管理</template>-->
-            <!--            </el-menu-item>-->
-            <!--            <el-menu-item index='/moments'>-->
-            <!--              <moments-icon></moments-icon>-->
-            <!--              <template #title>朋友圈</template>-->
-            <!--            </el-menu-item>-->
-            <!--            <el-menu-item index='/favorite'>-->
-            <!--              <favorite-icon></favorite-icon>-->
-            <!--              <template #title>收藏管理</template>-->
-            <!--            </el-menu-item>-->
-
-            <el-menu-item index='/statistics' style="text-align: center; justify-content: center;">
-              <statistics-icon></statistics-icon>
-              <template #title>统计分析</template>
-            </el-menu-item>
-            <el-menu-item index='/wxinfo' style="text-align: center; justify-content: center;">
-              <tools-icon></tools-icon>
-              <template #title>账号信息</template>
-            </el-menu-item>
-            <el-menu-item index='/bias' style="text-align: center; justify-content: center;">
-              <tools-icon></tools-icon>
-              <template #title>基址偏移</template>
-            </el-menu-item>
-            <el-menu-item index='/decrypt' style="text-align: center; justify-content: center;">
-              <tools-icon></tools-icon>
-              <template #title>解密数据</template>
-            </el-menu-item>
-            <el-menu-item index='/merge' style="text-align: center; justify-content: center;">
-              <tools-icon></tools-icon>
-              <template #title>数据库合并</template>
-            </el-menu-item>
-            <el-menu-item index='/batch-export' style="text-align: center; justify-content: center;">
-              <tools-icon></tools-icon>
-              <template #title>批量导出聊天记录</template>
-            </el-menu-item>
-          </el-menu>
-
-          <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
-                   @close="handleClose" :router='true'>
-          </el-menu>
-        </el-container>
-      </el-aside>
-
-      <el-main>
+    <!-- 主内容区域 -->
+    <div class="main-content">
+      <keep-alive>
         <RouterView/>
-      </el-main>
-
-    </el-container>
+      </keep-alive>
+    </div>
   </div>
 </template>
 
@@ -187,25 +145,83 @@ header {
   right: 0px;
 }
 
-.sidebar-container {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+/* 顶部导航栏样式 */
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  height: 60px;
 }
 
-.el-menu-vertical-demo {
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 
-.el-menu-item {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
+.navbar-menu-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
 }
 
-.el-menu-item .el-menu-item__title {
-  text-align: center !important;
+.navbar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 60px;
+  line-height: 60px;
+  text-decoration: none;
+  color: #606266;
+  background: transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-item:hover {
+  background: rgba(64, 158, 255, 0.1);
+  color: #409eff;
+  text-decoration: none;
+}
+
+.navbar-item.active {
+  background: rgba(64, 158, 255, 0.15);
+  color: #409eff;
+  border-bottom: 2px solid #409eff;
+}
+
+.navbar-item span {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* 主内容区域 */
+.main-content {
+  padding-top: 80px;
+  background: var(--background) !important;
 }
 </style>
