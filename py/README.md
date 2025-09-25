@@ -67,31 +67,37 @@ wxdump
 ### 命令行使用
 
 ```bash
-# 查看帮助
-uv run main -h
+# 启动API服务（默认行为）
+uv run main.py
+
+# 查看帮助信息
+uv run main.py -h
 
 # 获取微信信息
-uv run main info
+uv run main.py info
 
 # 解密微信数据库
-uv run main decrypt -k <密钥> -i <数据库路径> -o <输出路径>
+uv run main.py decrypt -k <密钥> -i <数据库路径> -o <输出路径>
 
 # 启动Web界面
-uv run main ui
+uv run main.py ui
 
-# 启动API服务
-uv run main api
+# 启动API服务（显式指定）
+uv run main.py api
 ```
 
 ### 快速启动脚本
 
 #### Windows
 ```cmd
-# 双击运行
+# 双击运行（启动API服务）
 start.bat
 
-# 或命令行运行
+# 启动Web界面
 start.bat ui
+
+# 获取微信信息
+start.bat info
 ```
 
 #### Linux/Mac
@@ -99,11 +105,14 @@ start.bat ui
 # 添加执行权限
 chmod +x start.sh
 
-# 运行
+# 运行（启动API服务）
 ./start.sh
 
-# 或指定参数
+# 启动Web界面
 ./start.sh ui
+
+# 获取微信信息
+./start.sh info
 ```
 
 ### 测试安装

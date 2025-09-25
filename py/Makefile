@@ -11,14 +11,14 @@ install: ## 安装依赖
 dev-install: ## 安装开发依赖
 	uv sync --dev
 
-run: ## 运行程序
-	uv run main
+run: ## 运行程序（启动API服务）
+	uv run main.py
 
 run-ui: ## 启动Web界面
-	uv run main ui
+	uv run main.py ui
 
 run-api: ## 启动API服务
-	uv run main api
+	uv run main.py api
 
 test: ## 运行测试
 	uv run pytest

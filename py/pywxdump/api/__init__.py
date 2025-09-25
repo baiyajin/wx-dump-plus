@@ -190,7 +190,6 @@ def start_server(port=5000, online=False, debug=False, isopenBrowser=True,
 
     time.sleep(1)
     server_loger.info(f"启动flask服务，host:port：{host}:{port}")
-    print(f"[+] 请使用浏览器访问 http://127.0.0.1:{port}/ 查看聊天记录")
     global app
     print(f"[+] 如需查看api文档，请访问 http://127.0.0.1:{port}/docs ")
     origins = [
