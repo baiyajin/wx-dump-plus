@@ -26,7 +26,7 @@ cd wx-dump-plus/py
 uv sync --index-url https://mirrors.aliyun.com/pypi/simple 
 
 # 运行程序
-uv run main
+uv run main.py
 ```
 
 #### 方式二：使用 pip
