@@ -37,11 +37,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-container>
+  <el-container style="height: 100%;">
     <el-header style="height: 40px; max-height: 40px; width: 100%;background-color: #d2d2fa;padding-top: 5px;">
       <ChatRecprdsHeader :wxid="wxid" @exporting="onExport"/>
     </el-header>
-    <el-main style="height: calc(100vh - 40px);padding: 0;margin: 0;background-color: #f5f5f5;">
+    <el-main style="height: calc(100% - 40px);padding: 0;margin: 0;background-color: #f5f5f5;">
         <ChatExportMain v-if="is_export" :wxid="wxid"/>
         <ChatRecordsMain v-else :wxid="wxid"/>
     </el-main>

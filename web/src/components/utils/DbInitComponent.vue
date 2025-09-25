@@ -5,6 +5,7 @@ import {defineEmits, onMounted, ref, watch} from "vue";
 import {ElTable, ElTableColumn, ElMessage, ElMessageBox} from "element-plus";
 import type {Action} from 'element-plus'
 import router from "@/router";
+import BackButton from "@/components/common/BackButton.vue";
 
 interface wxinfo {
   pid: string;
@@ -22,6 +23,11 @@ const percentage = ref(0);
 const startORstop = ref(-1);  // 用于进度条的开始和停止 0表示0% 1表示100%
 
 const init_type = ref("");
+
+// 返回按钮点击处理
+const handleBackToSelection = () => {
+  init_type.value = '';
+};
 
 // 初始化选项配置
 const initOptions = [
@@ -274,6 +280,7 @@ watch(init_type, (val) => {
           style="background-color: #fff; width: 90%;min-width: 800px; height: 80%; border-radius: 10px; padding: 20px; overflow: auto;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="font-size: 20px; font-weight: bold;">选择要查看的微信</div>
+          <BackButton @click="handleBackToSelection" />
         </div>
         <div style="margin-top: 20px;">
           <el-table :data="local_wxids" @current-change="selectLastWx" highlight-current-row style="width: 100%">
@@ -299,6 +306,7 @@ watch(init_type, (val) => {
            style="background-color: #fff; width: 90%;min-width: 800px; height: 80%; border-radius: 10px; padding: 20px; overflow: auto;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="font-size: 20px; font-weight: bold;">选择要查看的微信(会清空work下对应wxid数据)</div>
+          <BackButton @click="handleBackToSelection" />
         </div>
         <div style="margin-top: 20px;">
           <el-table :data="wxinfoData" @current-change="selectWx" highlight-current-row style="width: 100%">
@@ -328,9 +336,7 @@ watch(init_type, (val) => {
            style="background-color: #fff; width: 80%;min-width: 800px; height: 70%; border-radius: 10px; padding: 20px; overflow: auto;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="font-size: 20px; font-weight: bold;">自定义-文件位置</div>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <!--          <el-button style="margin-right: 10px;" @click="exportData">导出</el-button>-->
-          </div>
+          <BackButton @click="handleBackToSelection" />
         </div>
         <div style="margin-top: 20px;">
           <!--    单选按钮      -->

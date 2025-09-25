@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, nextTick } from 'vue';
-import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
+import { ElMessage, ElMessageBox, ElNotification, ElDrawer } from 'element-plus';
 import { Search, User as UserIcon } from '@element-plus/icons-vue';
 import http from '@/utils/axios.js';
 import { apiUserSessionList, apiMsgCount, apiExportCSV } from '@/api/chat';
 import { gen_show_name, type User } from '@/utils/common_utils';
 import { api_img } from '@/api/base';
+import ChatRecords from '@/components/chat/ChatRecords.vue';
 
 // 联系人列表数据
 const contactsList = ref<User[]>([]);
@@ -51,6 +52,11 @@ const total = ref(0);
 const exportProgress = ref(0);
 const exportStatus = ref('');
 const isExporting = ref(false);
+
+// 聊天记录弹窗相关
+const chatDialogVisible = ref(false);
+const currentChatWxid = ref('');
+const currentChatName = ref('');
 
 // 获取联系人列表
 const fetchContacts = async () => {
@@ -217,6 +223,20 @@ const handleSelect = (wxid: string) => {
   nextTick(() => {
     syncTableSelection();
   });
+};
+
+// 查看聊天记录
+const viewChatRecords = (row: User) => {
+  currentChatWxid.value = row.wxid;
+  currentChatName.value = gen_show_name(row);
+  chatDialogVisible.value = true;
+};
+
+// 关闭聊天记录弹窗
+const closeChatDialog = () => {
+  chatDialogVisible.value = false;
+  currentChatWxid.value = '';
+  currentChatName.value = '';
 };
 
 // 点击行选中
@@ -440,8 +460,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="height: 100%;width: 100%; display: grid; place-items: center;">
-    <div style="background-color: #fff; border-radius: 10px; padding: 20px; overflow: auto;">
+  <div style="height: 100%;width: 100%; display: grid; ">
+    <div style="height: 100%;width: 100%;background-color: #fff; border-radius: 10px; padding: 20px; ">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div style="font-size: 20px; font-weight: bold;">批量导出联系人聊天记录</div>
         <div>
@@ -533,8 +553,6 @@ onMounted(() => {
         ref="tableRef"
         :data="paginatedContacts"
         v-loading="loading"
-        style="width: 100%"
-        max-height="400"
         @selection-change="handleSelectionChange"
         @row-click="handleRowClick"
         :row-class-name="({ row }: { row: User }) => selectedContacts.includes(row.wxid) ? 'selected-row' : ''"
@@ -582,16 +600,26 @@ onMounted(() => {
           </template>
         </el-table-column>
         
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作" width="200">
           <template #default="{ row }">
-            <el-button
-              type="primary"
-              size="small"
-              :disabled="isExporting"
-              @click.stop="handleSelect(row.wxid)"
-            >
-              {{ selectedContacts.includes(row.wxid) ? '取消选择' : '选择' }}
-            </el-button>
+            <div style="display: flex; gap: 8px;">
+              <el-button
+                type="primary"
+                size="small"
+                :disabled="isExporting"
+                @click.stop="handleSelect(row.wxid)"
+              >
+                {{ selectedContacts.includes(row.wxid) ? '取消选择' : '选择' }}
+              </el-button>
+              <el-button
+                type="success"
+                size="small"
+                :disabled="isExporting"
+                @click.stop="viewChatRecords(row)"
+              >
+                查看聊天记录
+              </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -621,21 +649,40 @@ onMounted(() => {
         />
       </div>
 
-      <!-- 说明信息 -->
-      <div style="margin-top: 20px; padding: 15px; background-color: #f5f7fa; border-radius: 5px;">
-        <h4 style="margin: 0 0 10px 0; color: #409eff;">使用说明：</h4>
-        <ul style="margin: 0; padding-left: 20px; color: #666;">
-          <li><strong>筛选功能</strong>：支持按类型筛选（全部、公众号、群聊、折叠的群聊、企业服务、微信服务、微信好友）</li>
-          <li><strong>搜索功能</strong>：支持按联系人名称搜索</li>
-          <li><strong>消息数量过滤</strong>：支持按最小消息数量过滤</li>
-          <li><strong>批量导出（排除公众号、群聊、折叠群聊）</strong>：自动过滤掉wxid以"gh_"开头的公众号、以"@chatroom"结尾的群聊、以"@placeholder_foldgroup"结尾的折叠群聊和消息数量为0的联系人</li>
-          <li><strong>批量导出</strong>：手动选择要导出的联系人，支持多选，会自动过滤掉消息数量为0的联系人</li>
-          <li>导出格式为CSV，包含联系人名称、联系人ID和聊天记录内容</li>
-          <li>导出完成后会显示导出目录路径，方便用户查找文件</li>
-          <li>导出过程中请勿关闭页面，以免中断导出</li>
-        </ul>
-      </div>
+           <!-- 说明信息 -->
+      <div>
+          <h4 style="margin: 0 0 10px 0; color: #409eff;">使用说明：</h4>
+          <ul style="margin: 0; padding-left: 20px; color: #666;">
+            <li><strong>筛选功能</strong>：支持按类型筛选（全部、公众号、群聊、折叠的群聊、企业服务、微信服务、微信好友）</li>
+            <li><strong>搜索功能</strong>：支持按联系人名称搜索</li>
+            <li><strong>消息数量过滤</strong>：支持按最小消息数量过滤</li>
+            <li><strong>批量导出（排除公众号、群聊、折叠群聊）</strong>：自动过滤掉wxid以"gh_"开头的公众号、以"@chatroom"结尾的群聊、以"@placeholder_foldgroup"结尾的折叠群聊和消息数量为0的联系人</li>
+            <li><strong>批量导出</strong>：手动选择要导出的联系人，支持多选，会自动过滤掉消息数量为0的联系人</li>
+            <li>导出格式为CSV，包含联系人名称、联系人ID和聊天记录内容</li>
+            <li>导出完成后会显示导出目录路径，方便用户查找文件</li>
+            <li>导出过程中请勿关闭页面，以免中断导出</li>
+          </ul>
+        </div>
+    
+
     </div>
+  
+    <!-- 聊天记录抽屉 -->
+    <el-drawer
+      v-model="chatDialogVisible"
+      :title="`聊天记录 - ${currentChatName}`"
+      direction="ltr"
+      size="60%"
+      :before-close="closeChatDialog"
+      destroy-on-close
+    >
+      <div style="height: calc(100vh - 120px); overflow: hidden;">
+        <ChatRecords 
+          v-if="currentChatWxid" 
+          :wxid="currentChatWxid" 
+        />
+      </div>
+    </el-drawer>
   </div>
 </template>
 

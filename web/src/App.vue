@@ -13,13 +13,12 @@ const is_local_data = ref(true);
 // 菜单项配置
 const menuItems = [
   { path: '/db_init', icon: chatIcon, text: '数据初始化' },
-  { path: '/chat', icon: chatIcon, text: '聊天查看' },
+  { path: '/batch-export', icon: ToolsIcon, text: '批量导出' },
   { path: '/statistics', icon: StatisticsIcon, text: '统计分析' },
   { path: '/wxinfo', icon: ToolsIcon, text: '账号信息' },
   { path: '/bias', icon: ToolsIcon, text: '基址偏移' },
   { path: '/decrypt', icon: ToolsIcon, text: '解密数据' },
-  { path: '/merge', icon: ToolsIcon, text: '数据库合并' },
-  { path: '/batch-export', icon: ToolsIcon, text: '批量导出' }
+  { path: '/merge', icon: ToolsIcon, text: '数据库合并' }
 ];
 
 onMounted(() => {
