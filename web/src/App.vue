@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import chatIcon from "@/assets/icon/ChatIcon.vue";
 import StatisticsIcon from "@/assets/icon/StatisticsIcon.vue";
-import CleanupIcon from "@/assets/icon/CleanupIcon.vue";
 import ToolsIcon from "@/assets/icon/ToolsIcon.vue";
-import AboutIcon from "@/assets/icon/AboutIcon.vue";
-import HelpIcon from "@/assets/icon/HelpIcon.vue";
-import SettingIcon from "@/assets/icon/SettingIcon.vue";
 // import CollapseIcon from "@/assets/icon/CollapseIcon.vue";
-import HomeIcon from "@/assets/icon/HomeIcon.vue";
 import ContactsIcon from "@/assets/icon/ContactsIcon.vue";
 import MomentsIcon from "@/assets/icon/MomentsIcon.vue";
 import FavoriteIcon from "@/assets/icon/FavoriteIcon.vue";
-import CollapseOpenIcon from "@/assets/icon/CollapseOpenIcon.vue";
-import CollapseCloseIcon from "@/assets/icon/CollapseCloseIcon.vue";
 
 import {RouterLink, RouterView} from 'vue-router'
 import {ref, onMounted, withCtx, watch} from 'vue'
@@ -20,7 +13,7 @@ import router from "@/router";
 import {is_db_init, is_use_local_data} from "@/utils/common_utils";
 import ChatRecordsMain from "@/components/chat/ChatRecordsMain.vue";
 
-const isCollapse = ref(true);
+const isCollapse = ref(false);
 
 const is_local_data = ref(true);
 
@@ -55,20 +48,7 @@ const handleClose = (key: string, keyPath: string[]) => {
           <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse" :router='true'
                    :collapse-transition="false" :show-timeout="0" :hide-timeout="0">
 
-            <el-radio-group v-model="isCollapse"
-                            style="margin-bottom: 20px;margin-top: 10px;margin-left: 10px;max-height: 30px">
-              <el-radio-button :label="false" v-if="isCollapse">
-                <collapse-open-icon></collapse-open-icon>
-              </el-radio-button>
-              <el-radio-button :label="true" v-else>
-                <collapse-close-icon></collapse-close-icon>
-              </el-radio-button>
-            </el-radio-group>
 
-            <el-menu-item index='/home'>
-              <home-icon></home-icon>
-              <template #title>首页</template>
-            </el-menu-item>
             <el-menu-item index='/chat'>
               <chat-icon></chat-icon>
               <template #title>聊天查看</template>
@@ -91,37 +71,30 @@ const handleClose = (key: string, keyPath: string[]) => {
               <statistics-icon></statistics-icon>
               <template #title>统计分析</template>
             </el-menu-item>
-            <el-menu-item index='/cleanup'>
-              <cleanup-icon></cleanup-icon>
-              <template #title>文件清理</template>
+            <el-menu-item index='/wxinfo'>
+              <tools-icon></tools-icon>
+              <template #title>账号信息</template>
             </el-menu-item>
-            <el-sub-menu index='/tools'>
-              <template #title>
-                <tools-icon></tools-icon>
-                <span>实用工具</span>
-              </template>
-              <el-menu-item index='/wxinfo'>账号信息</el-menu-item>
-              <el-menu-item index='/bias'>基址偏移</el-menu-item>
-              <el-menu-item index='/decrypt'>解密数据</el-menu-item>
-              <el-menu-item index='/merge'>数据库合并</el-menu-item>
-              <el-menu-item index='/batch-export'>批量导出聊天记录</el-menu-item>
-            </el-sub-menu>
+            <el-menu-item index='/bias'>
+              <tools-icon></tools-icon>
+              <template #title>基址偏移</template>
+            </el-menu-item>
+            <el-menu-item index='/decrypt'>
+              <tools-icon></tools-icon>
+              <template #title>解密数据</template>
+            </el-menu-item>
+            <el-menu-item index='/merge'>
+              <tools-icon></tools-icon>
+              <template #title>数据库合并</template>
+            </el-menu-item>
+            <el-menu-item index='/batch-export'>
+              <tools-icon></tools-icon>
+              <template #title>批量导出聊天记录</template>
+            </el-menu-item>
           </el-menu>
 
           <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
                    @close="handleClose" :router='true'>
-            <el-menu-item index='/about'>
-              <about-icon></about-icon>
-              <template #title>关于我们</template>
-            </el-menu-item>
-            <el-menu-item index='/help'>
-              <help-icon></help-icon>
-              <template #title>帮助中心</template>
-            </el-menu-item>
-            <el-menu-item index='/setting'>
-              <setting-icon></setting-icon>
-              <template #title>更多设置</template>
-            </el-menu-item>
           </el-menu>
         </el-container>
       </el-aside>
