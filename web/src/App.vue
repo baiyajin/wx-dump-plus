@@ -223,7 +223,122 @@ header {
 .main-content {
     background: var(--background) !important;
     padding-top: 80px !important;
-    height: calc(100vh - 140px) !important;
+    height: 100vh !important;
     padding: 20px; 
+    overflow-y: scroll;
+}
+
+/* 美化滚动条 - 透明玻璃柱效果 */
+.main-content::-webkit-scrollbar {
+    width: 20px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 6px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0.15) 25%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
+            rgba(255, 255, 255, 0.25) 100%
+        ),
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+    backdrop-filter: blur(15px) saturate(1.2);
+    -webkit-backdrop-filter: blur(15px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        inset 1px 0 0 rgba(255, 255, 255, 0.3),
+        inset -1px 0 0 rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.main-content::-webkit-scrollbar-thumb::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 1px,
+            rgba(255, 255, 255, 0.1) 1px,
+            rgba(255, 255, 255, 0.1) 2px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(255, 255, 255, 0.05) 2px,
+            rgba(255, 255, 255, 0.05) 4px
+        );
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.25) 25%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.25) 75%,
+            rgba(255, 255, 255, 0.35) 100%
+        ),
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        inset 1px 0 0 rgba(255, 255, 255, 0.4),
+        inset -1px 0 0 rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+}
+
+.main-content::-webkit-scrollbar-thumb:active {
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.45) 0%,
+            rgba(255, 255, 255, 0.35) 25%,
+            rgba(255, 255, 255, 0.25) 50%,
+            rgba(255, 255, 255, 0.35) 75%,
+            rgba(255, 255, 255, 0.45) 100%
+        ),
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+        inset 1px 0 0 rgba(255, 255, 255, 0.5),
+        inset -1px 0 0 rgba(0, 0, 0, 0.15);
+    transform: scale(0.98);
+}
+
+/* 滚动条角落 */
+.main-content::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Firefox 滚动条样式 - 玻璃效果 */
+.main-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 </style>
