@@ -136,6 +136,7 @@ wxdump api
 ## 🔧 功能特性
 
 ### 核心功能
+
 - ✅ 微信信息获取（昵称、账号、手机、邮箱、密钥）
 - ✅ 数据库自动解密
 - ✅ 聊天记录查看和搜索
@@ -143,6 +144,7 @@ wxdump api
 - ✅ 数据导出（HTML、CSV、JSON）
 
 ### 新增功能
+
 - 🆕 聊天数据统计分析
 - 🆕 词云生成
 - 🆕 聊天趋势图表
@@ -154,6 +156,7 @@ wxdump api
 ## 📊 技术栈
 
 ### 后端
+
 - **Python 3.8+**
 - **FastAPI** - 现代Web框架
 - **SQLite** - 数据库
@@ -161,6 +164,7 @@ wxdump api
 - **psutil** - 系统监控
 
 ### 前端
+
 - **Vue 3** - 渐进式框架
 - **Element Plus** - UI组件库
 - **ECharts** - 数据可视化
@@ -204,6 +208,7 @@ wxdump api
 
 - 项目地址：https://github.com/baiyajin/wx-dump-plus
 - 问题反馈：https://github.com/baiyajin/wx-dump-plus/issues
+- QQ技术群：（群一已满员，请加群二）860104909
 
 ---
 
