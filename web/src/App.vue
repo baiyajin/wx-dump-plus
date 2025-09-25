@@ -43,13 +43,13 @@ const handleClose = (key: string, keyPath: string[]) => {
   </div>
   <div id="appbg" v-else>
     <el-container class="layout-container-demo" style="height: 100%;background:none;">
-      <el-aside :width="isCollapse ? '64px' : '160px'">
-        <el-container class="sidebar-container">
+      <el-aside :width="isCollapse ? '64px' : '160px'" style="display: flex; justify-content: center; align-items: center;">
+        <el-container class="sidebar-container" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
           <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse" :router='true'
-                   :collapse-transition="false" :show-timeout="0" :hide-timeout="0">
+                   :collapse-transition="false" :show-timeout="0" :hide-timeout="0" style="text-align: center;">
 
 
-            <el-menu-item index='/chat'>
+            <el-menu-item index='/chat' style="text-align: center; justify-content: center;">
               <chat-icon></chat-icon>
               <template #title>聊天查看</template>
             </el-menu-item>
@@ -67,27 +67,27 @@ const handleClose = (key: string, keyPath: string[]) => {
             <!--              <template #title>收藏管理</template>-->
             <!--            </el-menu-item>-->
 
-            <el-menu-item index='/statistics'>
+            <el-menu-item index='/statistics' style="text-align: center; justify-content: center;">
               <statistics-icon></statistics-icon>
               <template #title>统计分析</template>
             </el-menu-item>
-            <el-menu-item index='/wxinfo'>
+            <el-menu-item index='/wxinfo' style="text-align: center; justify-content: center;">
               <tools-icon></tools-icon>
               <template #title>账号信息</template>
             </el-menu-item>
-            <el-menu-item index='/bias'>
+            <el-menu-item index='/bias' style="text-align: center; justify-content: center;">
               <tools-icon></tools-icon>
               <template #title>基址偏移</template>
             </el-menu-item>
-            <el-menu-item index='/decrypt'>
+            <el-menu-item index='/decrypt' style="text-align: center; justify-content: center;">
               <tools-icon></tools-icon>
               <template #title>解密数据</template>
             </el-menu-item>
-            <el-menu-item index='/merge'>
+            <el-menu-item index='/merge' style="text-align: center; justify-content: center;">
               <tools-icon></tools-icon>
               <template #title>数据库合并</template>
             </el-menu-item>
-            <el-menu-item index='/batch-export'>
+            <el-menu-item index='/batch-export' style="text-align: center; justify-content: center;">
               <tools-icon></tools-icon>
               <template #title>批量导出聊天记录</template>
             </el-menu-item>
@@ -189,7 +189,23 @@ header {
 
 .sidebar-container {
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   height: 100%;
+}
+
+.el-menu-vertical-demo {
+  width: 100%;
+}
+
+.el-menu-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.el-menu-item .el-menu-item__title {
+  text-align: center !important;
 }
 </style>
