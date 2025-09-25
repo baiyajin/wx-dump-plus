@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue';
 import { ElMessage, ElMessageBox, ElNotification, ElDrawer, ElTooltip } from 'element-plus';
 import { Search, User as UserIcon } from '@element-plus/icons-vue';
 import http from '@/utils/axios.js';
@@ -18,6 +18,19 @@ const searchKeyword = ref('');
 const contactMsgCounts = ref<Record<string, number>>({});
 const minMsgCount = ref(0);
 const filterType = ref('all'); // 筛选类型：all, official, group, folded_group, friend
+
+// 滚动监听相关
+const isScrolled = ref(false);
+const scrollContainer = ref<HTMLElement | null>(null);
+
+// 滚动监听函数
+const handleScroll = () => {
+  if (!scrollContainer.value) return;
+  
+  const scrollTop = scrollContainer.value.scrollTop;
+  // 当滚动超过60px时启用sticky效果
+  isScrolled.value = scrollTop > 60;
+};
 
 // 表格引用
 const tableRef = ref();
@@ -457,28 +470,45 @@ const clearSelection = () => {
 
 onMounted(() => {
   fetchContacts();
+  
+  // 获取滚动容器
+  nextTick(() => {
+    scrollContainer.value = document.querySelector('.main-content') as HTMLElement;
+    if (scrollContainer.value) {
+      scrollContainer.value.addEventListener('scroll', handleScroll);
+    }
+  });
+});
+
+onUnmounted(() => {
+  // 清理滚动监听
+  if (scrollContainer.value) {
+    scrollContainer.value.removeEventListener('scroll', handleScroll);
+  }
 });
 </script>
 
 <template>
   <div style="height: 100%;width: 100%; display: grid; ">
     <div style="height: 100%;width: 100%;background-color: #fff; border-radius: 10px; padding: 20px; ">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <div style="font-size: 20px; font-weight: bold;">批量导出联系人聊天记录</div>
-        <div>
-          <el-button 
-            type="success" 
-            :disabled="isExporting"
-            @click="batchExportNonOfficial"
-            :loading="isExporting"
-          >
-            {{ isExporting ? '导出中...' : `批量导出（排除公众号、群聊、折叠群聊、消息数量为0）(${nonOfficialContacts.length}人)` }}
-          </el-button>
+      <!-- Sticky 容器包裹 -->
+      <div :class="['sticky-container', { 'sticky-active': isScrolled }]">
+        <div class="sticky-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="font-size: 20px; font-weight: bold;">批量导出联系人聊天记录</div>
+          <div>
+            <el-button 
+              type="success" 
+              :disabled="isExporting"
+              @click="batchExportNonOfficial"
+              :loading="isExporting"
+            >
+              {{ isExporting ? '导出中...' : `批量导出（排除公众号、群聊、折叠群聊、消息数量为0）(${nonOfficialContacts.length}人)` }}
+            </el-button>
+          </div>
         </div>
-      </div>
 
-      <!-- 搜索和过滤区域 -->
-      <div style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        <!-- 搜索和过滤区域 -->
+        <div class="sticky-filters" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
         <el-select
           v-model="filterType"
           placeholder="选择类型"
@@ -519,10 +549,10 @@ onMounted(() => {
         <el-button @click="fetchContacts" :loading="loading">
           刷新
         </el-button>
-      </div>
+        </div>
 
-      <!-- 筛选结果统计 -->
-      <div style="margin-bottom: 15px; padding: 10px; background-color: #f0f9ff; border-radius: 5px; border-left: 4px solid #409eff;">
+        <!-- 筛选结果统计 -->
+        <div class="sticky-stats" style="margin-bottom: 15px; padding: 10px; background-color: #f0f9ff; border-radius: 5px; border-left: 4px solid #409eff;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
             <span style="color: #666;">当前筛选：</span>
@@ -538,15 +568,16 @@ onMounted(() => {
             消息数量范围：{{ Math.min(...filteredContacts.map(c => contactMsgCounts[c.wxid] || 0)) }} - {{ Math.max(...filteredContacts.map(c => contactMsgCounts[c.wxid] || 0)) }}
           </div>
         </div>
-      </div>
+        </div>
 
-      <!-- 导出进度 -->
-      <div v-if="isExporting" style="margin-bottom: 20px;">
+        <!-- 导出进度 -->
+        <div v-if="isExporting" class="sticky-progress" style="margin-bottom: 20px;">
         <el-progress 
           :percentage="exportProgress" 
           :status="exportProgress === 100 ? 'success' : undefined"
         />
         <div style="margin-top: 10px; color: #666;">{{ exportStatus }}</div>
+        </div>
       </div>
 
       <!-- 联系人列表 -->
@@ -636,7 +667,9 @@ onMounted(() => {
       </el-table>
 
       <!-- 分页和导出按钮 -->
-      <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div
+      :class="['sticky-pagination', { 'sticky-active': isScrolled }]"
+      style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
         <!-- 第二个批量导出按钮 -->
         <div>
           <el-button 
@@ -651,13 +684,13 @@ onMounted(() => {
         
         <!-- 分页 -->
         <el-pagination
-          v-model:current-page="currentPage"
-          v-model:page-size="pageSize"
-          :page-sizes="[10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]"
-          :total="total"
-          layout="total, sizes, prev, pager, next, jumper"
-          @size-change="() => currentPage = 1"
-        />
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]"
+            :total="total"
+            layout="total, sizes, prev, pager, next, jumper"
+            @size-change="() => currentPage = 1"
+          />
       </div>
 
            <!-- 说明信息 -->
@@ -722,5 +755,66 @@ onMounted(() => {
 
 :deep(.el-table__row:hover) {
   background-color: #f5f7fa;
+}
+
+/* Sticky 容器样式 - 只在激活时生效 */
+.sticky-container.sticky-active {
+  position: sticky;
+  top: -20px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(228, 231, 237, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  transform: translateX(5%);
+}
+
+/* 正常状态下的样式 */
+.sticky-container {
+  transition: all 0.3s ease;
+}
+
+/* 内部元素样式调整 */
+.sticky-container.sticky-active .sticky-header {
+  margin-bottom: 15px;
+}
+
+.sticky-container.sticky-active .sticky-filters {
+  margin-bottom: 15px;
+}
+
+.sticky-container.sticky-active .sticky-stats {
+  margin-bottom: 10px;
+}
+
+.sticky-container.sticky-active .sticky-progress {
+  margin-bottom: 15px;
+}
+
+/* 分页 Sticky 样式 */
+.sticky-pagination.sticky-active {
+  position: sticky;
+  bottom: -20px;
+  z-index: 99;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(228, 231, 237, 0.8);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  transform: translateX(5%);
+}
+
+/* 正常状态下的分页样式 */
+.sticky-pagination {
+  transition: all 0.3s ease;
 }
 </style>
