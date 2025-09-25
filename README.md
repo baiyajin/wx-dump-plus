@@ -61,10 +61,61 @@ wx-dump-plus/
 - Python 3.8+
 - Node.js 16+
 - Windows 10 64位及以上
+- uv (Python包管理器)
+- pnpm (Node.js包管理器)
 
-### 安装步骤
+### 一键启动（推荐）
 
-- 详情见py目录跟web目录
+#### Windows
+```cmd
+# 克隆项目
+git clone https://github.com/baiyajin/wx-dump-plus.git
+cd wx-dump-plus
+
+# 一键启动（自动安装依赖并启动服务）
+start.bat
+
+# 开发模式启动
+start-dev.bat
+```
+
+#### Linux/Mac
+```bash
+# 克隆项目
+git clone https://github.com/baiyajin/wx-dump-plus.git
+cd wx-dump-plus
+
+# 添加执行权限
+chmod +x start.sh start-dev.sh
+
+# 一键启动（自动安装依赖并启动服务）
+./start.sh
+
+# 开发模式启动
+./start-dev.sh
+```
+
+#### 使用Makefile
+```bash
+# 安装所有依赖
+make install
+
+# 启动生产环境服务
+make start
+
+# 启动开发环境服务
+make start-dev
+
+# 只启动后端服务
+make backend
+
+# 只启动前端服务
+make frontend
+```
+
+### 手动安装步骤
+
+详情见py目录跟web目录的README.md文件
 
 ## 🔧 功能特性
 
