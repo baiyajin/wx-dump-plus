@@ -1,0 +1,10 @@
+/py/.venv/
+/py/build/
+/py/pywxdump.egg-info/
+/py/pywxdump/ui/dist/
+/py/pywxdump/__pycache__/
+/py/tests/build/
+/py/tests/dist/
+/py/wxdump_work/
+/web/pnpm-lock.yaml
+/web/node_modules/
