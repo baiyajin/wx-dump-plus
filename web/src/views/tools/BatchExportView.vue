@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, nextTick } from 'vue';
-import { ElMessage, ElMessageBox, ElNotification, ElDrawer } from 'element-plus';
+import { ElMessage, ElMessageBox, ElNotification, ElDrawer, ElTooltip } from 'element-plus';
 import { Search, User as UserIcon } from '@element-plus/icons-vue';
 import http from '@/utils/axios.js';
 import { apiUserSessionList, apiMsgCount, apiExportCSV } from '@/api/chat';
 import { gen_show_name, type User } from '@/utils/common_utils';
 import { api_img } from '@/api/base';
 import ChatRecords from '@/components/chat/ChatRecords.vue';
+import UserInfoShow from '@/components/chat/components/UserInfoShow.vue';
 
 // 联系人列表数据
 const contactsList = ref<User[]>([]);
@@ -570,12 +571,22 @@ onMounted(() => {
         
         <el-table-column label="头像" width="80">
           <template #default="{ row }">
-            <el-avatar :size="40" :src="api_img(row.headImgUrl)" v-if="row.headImgUrl">
-              <el-icon><UserIcon /></el-icon>
-            </el-avatar>
-            <el-avatar :size="40" v-else>
-              <el-icon><UserIcon /></el-icon>
-            </el-avatar>
+            <el-tooltip 
+              effect="light" 
+              placement="right"
+              :show-after="500"
+              :hide-after="100"
+            >
+              <template #content>
+                <UserInfoShow :userinfo="row" :show_all="false" style="max-width: 600px" />
+              </template>
+              <el-avatar :size="40" :src="api_img(row.headImgUrl)" v-if="row.headImgUrl">
+                <el-icon><UserIcon /></el-icon>
+              </el-avatar>
+              <el-avatar :size="40" v-else>
+                <el-icon><UserIcon /></el-icon>
+              </el-avatar>
+            </el-tooltip>
           </template>
         </el-table-column>
         
