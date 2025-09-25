@@ -42,7 +42,7 @@ const isSyncing = ref(false);
 const MESSAGE_TYPES = ['notification_messages', 'notifymessage', '@opencustomerservicemsg'];
 
 // 微信服务类型常量
-const WECHAT_SERVICE_TYPES = ['mphelper', 'filehelper', 'fmessage', 'weixin'];
+const WECHAT_SERVICE_TYPES = ['mphelper', 'filehelper', 'fmessage', 'weixin', 'newsapp'];
 
 // 筛选选项
 const filterOptions = [
