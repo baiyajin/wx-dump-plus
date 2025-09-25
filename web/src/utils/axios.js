@@ -9,7 +9,7 @@ const apiPort = import.meta.env.VITE_API_PORT
 
 const params = {
   baseURL: `${apiHost}${apiPort}`,  // 使用环境变量设置基础URL
-  withCredentials: true,  // 表示跨域请求时是否需要使用凭证，开启后，后端服务器要设置允许开启
+  withCredentials: false,  // 禁用凭证，避免CORS问题
 }
 
 const http = axios.create(params)

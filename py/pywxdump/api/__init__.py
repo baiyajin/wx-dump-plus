@@ -37,18 +37,11 @@ def gen_fastapi_app(handler, origins=None):
                                 "url": "https://github.com/xaoyaoo/PyWxDump/blob/master/LICENSE"})
 
     web_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ui", "web")  # web文件夹路径
-    # 跨域 修改了要执行 pip install -e . 让它重新安装生效
-    if not origins:
-        origins = [
-            "http://localhost:5000",
-            "http://127.0.0.1:5000",
-            "http://0.0.0.0:5000",
-            "*"
-        ]
+    # 跨域配置 - 开发环境完全开放
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=origins,  # 允许所有源
-        allow_credentials=True,
+        allow_origins=["*"],  # 允许所有源
+        allow_credentials=False,  # 禁用凭证，避免CORS限制
         allow_methods=["*"],  # 允许所有方法
         allow_headers=["*"],  # 允许所有头
     )
