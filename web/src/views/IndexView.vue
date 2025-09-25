@@ -58,7 +58,6 @@ onMounted(() => {
       <p style="margin-bottom: 20px; font-size: 16px;">当前版本：{{ version }}</p>
       <p style="margin-bottom: 30px; color: #28a745;">✅ 数据库已初始化，可以开始使用</p>
       <div style="display: flex; gap: 20px; justify-content: center;">
-        <el-button type="primary" size="large" @click="() => router.push('/chat')">查看聊天记录</el-button>
         <el-button type="default" size="large" @click="showInit">重新初始化</el-button>
       </div>
     </div>
