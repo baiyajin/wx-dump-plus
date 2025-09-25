@@ -14,8 +14,8 @@ const mene_selected = ref("date_chat_heatmap");
   <!--      用于统计微信聊天记录，包括聊天记录数量、聊天记录总字数、聊天记录总图片数量<br>聊天记录总视频数量、聊天记录总文件数量、聊天记录总语音数量等等。-->
   <!--      行成统计报表，方便用户查看自己的聊天记录情况-->
   <!--    </h3>-->
-  <div class="common-layout" style="height: 100vh;width: 100%;background-color: #d2d2fa;">
-    <el-container style="height: calc(100vh);width: 100%;">
+  <div class="common-layout" style="height: 100%;width: 100%;">
+    <el-container style="height: 100%;width: 100%;">
       <el-aside width="120px" style="height: 100%;">
         <el-menu style="height: 100%;background-color: #F7F7F7;color:#262626;"
                  :default-active="mene_selected"

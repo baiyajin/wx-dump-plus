@@ -5,6 +5,9 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  #appbg {
+    background: var(--background) !important;
+  }
 }
 
 a,

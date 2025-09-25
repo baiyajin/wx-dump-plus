@@ -64,8 +64,8 @@ const downloadCSV = (csvContent: string, fileName: string) => {
 </script>
 
 <template>
-  <div style="background-color: #d2d2fa; height: 100vh; display: grid; place-items: center; ">
-    <div style="background-color: #fff; width: 90%; height: 80%; border-radius: 10px; padding: 20px; overflow: auto;">
+  <div style="height: 100%; display: grid; place-items: center;">
+    <div style="background-color: #fff; width: 100%; height: 80%; border-radius: 10px; padding: 20px; overflow: auto;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div style="font-size: 20px; font-weight: bold;">微信信息（已经登录）</div>
         <div style="display: flex; justify-content: space-between; align-items: center;">

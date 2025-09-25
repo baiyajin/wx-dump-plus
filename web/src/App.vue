@@ -12,6 +12,7 @@ const is_local_data = ref(true);
 
 // 菜单项配置
 const menuItems = [
+  { path: '/db_init', icon: chatIcon, text: '数据初始化' },
   { path: '/chat', icon: chatIcon, text: '聊天查看' },
   { path: '/statistics', icon: StatisticsIcon, text: '统计分析' },
   { path: '/wxinfo', icon: ToolsIcon, text: '账号信息' },
@@ -221,7 +222,9 @@ header {
 
 /* 主内容区域 */
 .main-content {
-  padding-top: 80px;
-  background: var(--background) !important;
+    background: var(--background) !important;
+    padding-top: 80px !important;
+    height: calc(100vh - 140px) !important;
+    padding: 20px; 
 }
 </style>

@@ -23,6 +23,31 @@ const startORstop = ref(-1);  // 用于进度条的开始和停止 0表示0% 1�
 
 const init_type = ref("");
 
+// 初始化选项配置
+const initOptions = [
+  {
+    value: 'last',
+    title: '使用历史数据',
+    description: '使用上次保存的配置和数据',
+    icon: '📁',
+    color: '#409eff'
+  },
+  {
+    value: 'auto',
+    title: '自动解密已登录微信',
+    description: '自动检测并解密当前登录的微信数据',
+    icon: '🔓',
+    color: '#67c23a'
+  },
+  {
+    value: 'custom',
+    title: '自定义文件位置',
+    description: '手动指定微信数据文件的位置',
+    icon: '⚙️',
+    color: '#e6a23c'
+  }
+];
+
 const is_init = ref(false);
 const wxinfoData = ref<wxinfo[]>([]);
 
@@ -351,33 +376,178 @@ watch(init_type, (val) => {
 
 
     <!-- 初始选择界面 -->
-    <div v-else-if="init_type === ''" style="display: flex; justify-content: space-between;">
-      <label
-          style="width: 200px; height: 150px; background-color: #fff; display: flex; flex-direction: column; align-items: center; border-radius: 10px; margin-right: 20px;">
-        <input type="radio" v-model="init_type" value="last"/>
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-          <div>使用历史数据</div>
-        </div>
-      </label>
-      <label
-          style="width: 200px; height: 150px; background-color: #fff; display: flex; flex-direction: column; align-items: center; border-radius: 10px; margin-right: 20px;">
-        <input type="radio" v-model="init_type" value="auto"/>
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-          <div>自动解密已登录微信</div>
-        </div>
-      </label>
-      <label
-          style="width: 200px; height: 150px; background-color: #fff; display: flex; flex-direction: column; align-items: center; border-radius: 10px;">
-        <input type="radio" v-model="init_type" value="custom"/>
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-          <div>自定义文件位置</div>
-        </div>
-      </label>
+    <div v-else-if="init_type === ''" class="init-selection-container">
+      <div class="init-title">
+        <h2>选择初始化方式</h2>
+        <p>请选择一种方式来初始化微信数据</p>
+      </div>
+      <div class="init-options">
+        <label 
+          v-for="option in initOptions" 
+          :key="option.value"
+          class="init-option"
+          :class="{ active: init_type === option.value }"
+          :style="{ '--option-color': option.color }"
+        >
+          <input 
+            type="radio" 
+            v-model="init_type" 
+            :value="option.value"
+            class="init-radio"
+          />
+          <div class="init-option-content">
+            <div class="init-option-icon">{{ option.icon }}</div>
+            <div class="init-option-title">{{ option.title }}</div>
+            <div class="init-option-description">{{ option.description }}</div>
+          </div>
+        </label>
+      </div>
     </div>
     <!-- END -->
   </div>
 </template>
 
 <style scoped>
+/* 初始化选择容器 */
+.init-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
+.init-title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.init-title h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.init-title p {
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* 选项容器 */
+.init-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* 单个选项 */
+.init-option {
+  position: relative;
+  display: block;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  overflow: hidden;
+}
+
+.init-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--option-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.init-option:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.init-option:hover::before {
+  transform: scaleX(1);
+}
+
+.init-option.active {
+  border-color: var(--option-color);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.init-option.active::before {
+  transform: scaleX(1);
+}
+
+/* 隐藏原生radio */
+.init-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 选项内容 */
+.init-option-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.init-option-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.init-option-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.init-option-description {
+  font-size: 14px;
+  color: #7f8c8d;
+  line-height: 1.5;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .init-options {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .init-option {
+    padding: 20px;
+  }
+  
+  .init-title h2 {
+    font-size: 24px;
+  }
+  
+  .init-option-icon {
+    font-size: 40px;
+  }
+  
+  .init-option-title {
+    font-size: 18px;
+  }
+}
 </style>

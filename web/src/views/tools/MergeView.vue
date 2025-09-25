@@ -22,8 +22,8 @@ const decrypt = async () => {
 </script>
 
 <template>
-  <div style="background-color: #d2d2fa; height: 100vh; display: grid; place-items: center; ">
-    <div style="background-color: #fff; width: 70%; height: 70%; border-radius: 10px; padding: 20px; overflow: auto;">
+  <div style="height: 100%; display: grid; place-items: center; ">
+    <div style="background-color: #fff; width: 100%; height: 100%; border-radius: 10px; padding: 20px; overflow: auto;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div style="font-size: 20px; font-weight: bold;">合并-微信数据库</div>
         <div style="display: flex; justify-content: space-between; align-items: center;">
