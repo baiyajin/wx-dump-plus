@@ -41,7 +41,7 @@ echo "[成功] 前端依赖安装完成"
 echo
 echo "[信息] 启动开发服务..."
 echo "[后端] 启动API服务 (端口: 5000)"
-echo "[前端] 启动开发服务器 (端口: 5173)"
+echo "[前端] 启动开发服务器 (端口: 8080)"
 echo
 echo "按 Ctrl+C 停止所有服务"
 echo "========================================"
@@ -62,7 +62,7 @@ FRONTEND_PID=$!
 echo
 echo "[成功] 开发服务启动完成！"
 echo "后端API: http://localhost:5000"
-echo "前端界面: http://localhost:5173"
+echo "前端界面: http://localhost:8080"
 echo
 
 # 等待用户中断
