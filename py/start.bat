@@ -23,6 +23,7 @@ uv sync
 
 REM 运行程序
 echo Starting wx-dump-plus...
-uv run main %*
+REM use the installed console script name 'wxdump' (defined in setup.py) instead of 'main'
+uv run wxdump %*
 
 pause
