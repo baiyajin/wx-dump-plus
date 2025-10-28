@@ -11,6 +11,11 @@
 
 wx-dump-plus 是对原版 PyWxDump 和 wxdump_web 的全面优化升级版本，在保持原有核心功能的基础上，增加了更多实用功能和改进。本项目旨在提供更好的用户体验和更强大的微信数据管理能力。
 
+## 📖 项目预览
+<img width="1912" height="924" alt="image" src="https://github.com/user-attachments/assets/4d9b8419-00e1-4dda-8f4e-99aedffdc00c" />
+<img width="1912" height="924" alt="image" src="https://github.com/user-attachments/assets/b9d4a86b-45f0-48d0-b40d-f554908be6f3" />
+
+
 ### 🎯 核心功能
 
 - **微信信息获取**：获取微信昵称、账号、手机号、邮箱、数据库密钥等
@@ -199,4 +204,5 @@ make frontend
 ---
 
 ⭐ 如果这个项目对你有帮助，请给个Star支持一下！
+
 
