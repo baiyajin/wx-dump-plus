@@ -5,6 +5,34 @@
 [![Element Plus](https://img.shields.io/badge/Element%20Plus-2.x-orange.svg)](https://element-plus.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/xaoyaoo/PyWxDump/blob/master/LICENSE)
 
+---
+
+## 🚀 推荐使用新项目：wx-dump-4
+
+<div align="center">
+
+### ⭐ 全新版本，基于 Rust + Vue 3 构建，性能更优！
+
+<a href="https://github.com/baiyajin/wx-dump-4">
+  <img src="wx-dump-4/logo.png" alt="wx-dump-4 Logo" width="200">
+</a>
+
+### [👉 立即前往 wx-dump-4 项目 👈](https://github.com/baiyajin/wx-dump-4)
+
+**wx-dump-4** 是使用 **Rust** 重写的全新版本，具有以下优势：
+
+- 🚀 **更高性能**：Rust 原生性能，内存安全
+- 🔒 **更安全**：编译期安全检查，避免内存泄漏
+- 📦 **更小体积**：单一可执行文件，无需 Python 环境
+- ⚡ **更快启动**：启动速度更快，资源占用更少
+- 🎯 **专注 4.0+**：专门针对微信 4.0+ 版本优化
+
+**建议新用户直接使用 [wx-dump-4](https://github.com/baiyajin/wx-dump-4)，老用户可继续使用本项目的 Python 版本。**
+
+</div>
+
+---
+
 > 基于 [PyWxDump](https://github.com/xaoyaoo/PyWxDump) 和 [wxdump_web](https://github.com/xaoyaoo/wxdump_web) 的优化升级版本，集成了更多功能特性
 
 ## 📖 项目简介
