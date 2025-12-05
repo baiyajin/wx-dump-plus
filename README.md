@@ -14,7 +14,7 @@
 ### ⭐ 全新版本，基于 Rust + Vue 3 构建，性能更优！
 
 <a href="https://github.com/baiyajin/wx-dump-4">
-  <img src="wx-dump-4/logo.png" alt="wx-dump-4 Logo" width="200">
+  <img src="https://github.com/baiyajin/wx-dump-4/raw/main/logo.png" alt="wx-dump-4 Logo" width="200">
 </a>
 
 ### [👉 立即前往 wx-dump-4 项目 👈](https://github.com/baiyajin/wx-dump-4)
