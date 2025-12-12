@@ -221,15 +221,13 @@ make frontend
 
 本项目基于 [MIT License](LICENSE) 开源协议。
 
-## 📞 联系方式
+### 推荐项目：my-wx-4
 
-- 项目地址：https://github.com/baiyajin/wx-dump-plus
-- 问题反馈：https://github.com/baiyajin/wx-dump-plus/issues
-- QQ技术群：（群一已满员，请加群二）860104909
-- <img width="272" height="333" alt="image" src="https://github.com/user-attachments/assets/e06070c2-3895-4d1b-acac-cbd4d10c3bca" />
+<a href="https://github.com/baiyajin/my-wx-4">
+  <img src="https://github.com/baiyajin/my-wx-4/raw/main/logo.png" alt="my-wx-4 Logo" width="40" height="40">
+</a>
 
-
----
+### [👉 查看 my-wx-4 项目 👈](https://github.com/baiyajin/my-wx-4)
 
 ⭐ 如果这个项目对你有帮助，请给个Star支持一下！
 
