@@ -221,13 +221,17 @@ make frontend
 
 本项目基于 [MIT License](LICENSE) 开源协议。
 
-### 相关项目：my-wx-4
+### 相关项目
+<div style="display:flex;">
+  my-wx-4
+  <a href="https://github.com/baiyajin/my-wx-4" style="width:40px;height:40px">
+    <img src="https://github.com/baiyajin/my-wx-4/raw/main/logo.png" alt="my-wx-4 Logo" width="40" height="40">
+  </a>
+</div>
 
-<a href="https://github.com/baiyajin/my-wx-4" style="width:40px;height:40px">
-  <img src="https://github.com/baiyajin/my-wx-4/raw/main/logo.png" alt="my-wx-4 Logo" width="40" height="40">
-</a>
 
 ⭐ 如果这个项目对你有帮助，请给个Star支持一下！
+
 
 
 
