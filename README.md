@@ -223,7 +223,7 @@ make frontend
 
 ### 相关项目
 <div style="display:flex;justify-content: center;align-items: center;">
-  <span>my-wx-4</span>
+  <div style="height:40px;">my-wx-4</div>
   <a href="https://github.com/baiyajin/my-wx-4" style="width:40px;height:40px">
     <img src="https://github.com/baiyajin/my-wx-4/raw/main/logo.png" alt="my-wx-4 Logo" width="40" height="40">
   </a>
@@ -231,6 +231,7 @@ make frontend
 
 
 ⭐ 如果这个项目对你有帮助，请给个Star支持一下！
+
 
 
 
